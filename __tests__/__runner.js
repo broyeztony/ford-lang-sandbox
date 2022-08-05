@@ -4,9 +4,10 @@ const parser = new Parser()
 function exec () {
   const program = `
 		x > 0 == false;
+		let b = true;
 	`
   const ast = parser.parse(program)
-  // console.log(JSON.stringify(ast, null, 2))
+  console.log(JSON.stringify(ast, null, 2))
 }
 
 exec()
