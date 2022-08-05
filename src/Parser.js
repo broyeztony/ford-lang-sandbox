@@ -140,13 +140,13 @@ class Parser {
 
   /**
 	 * AssignmentExpression
-	 *  : RelationalExpression
+	 *  : LogicalORExpression
 	 *  | LHS '=' AssignmentExpression
 	 * @returns {{type: string, operator, left, right}}
 	 * @constructor
 	 */
   AssignmentExpression () {
-    const left = this.EqualityExpression()
+    const left = this.LogicalORExpression()
     if (!this._isAssignmentOperator(this._lookahead.type)) {
       return left
     }
@@ -196,8 +196,31 @@ class Parser {
     return this._eat('COMPLEX_ASSIGN')
   }
 
+  LogicalORExpression() {
+    return this._logicalExpression('LogicalANDExpression', 'LOGICAL_OR')
+  }
+
+  LogicalANDExpression() {
+    return this._logicalExpression('EqualityExpression', 'LOGICAL_AND')
+  }
+
   EqualityExpression () {
     return this._BinaryExpression('RelationalExpression', 'EQUALITY_OPERATOR')
+  }
+
+  _logicalExpression (builderName, operatorToken) {
+    let left = this[builderName]()
+    while (this._lookahead.type === operatorToken) {
+      const operator = this._eat(operatorToken).value
+      const right = this[builderName]()
+      left = {
+        type: 'LogicalExpression',
+        operator,
+        left,
+        right
+      }
+    }
+    return left
   }
 
   _BinaryExpression (builderName, operatorToken) {

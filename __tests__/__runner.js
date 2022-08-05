@@ -3,8 +3,7 @@ const parser = new Parser()
 
 function exec () {
   const program = `
-		x > 0 == false;
-		let b = true;
+		x > 0 == false || b == true;
 	`
   const ast = parser.parse(program)
   console.log(JSON.stringify(ast, null, 2))
@@ -22,7 +21,8 @@ const tests = [
   require('./variable.spec'),
   require('./if.spec'),
   require('./relational.spec'),
-  require('./equality.spec')
+  require('./equality.spec'),
+  require('./logical.spec'),
 ]
 
 tests.forEach(testRun => testRun((program, expected) => {
