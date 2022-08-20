@@ -9,11 +9,16 @@ class Parser {
   }
 
   parse (string) {
-    this._string = string
-    this._tokenizer.init(string)
-    this._lookahead = this._tokenizer.getNextToken() // LL(1)
 
-    return this.Program()
+    // console.log('@ parse', string.length, string.trim().length)
+    this._string = string.trim()
+    if(this._string.length > 0) {
+      this._tokenizer.init(string)
+      this._lookahead = this._tokenizer.getNextToken() // LL(1)
+
+      return this.Program()
+    }
+    return null
   }
 
   Program () {
@@ -167,7 +172,7 @@ class Parser {
   }
 
   LeftHandSideExpression () {
-    return this.Identifier()
+    return this.PrimaryExpression()
   }
 
   Identifier () {
@@ -248,14 +253,41 @@ class Parser {
   }
 
   MultiplicativeExpression () {
-    return this._BinaryExpression('PrimaryExpression', 'MULTIPLICATIVE_OPERATOR')
+    return this._BinaryExpression('UnaryExpression', 'MULTIPLICATIVE_OPERATOR')
+  }
+
+  /**
+   * UnaryExpression
+   *  : LeftHandSideExpression
+   *  | ADDITIVE_OPERATOR UnaryExpression
+   *  | LOGICAL_NOT UnaryExpression
+   *  ;
+   */
+  UnaryExpression () {
+    let operator;
+    switch (this._lookahead.type) {
+      case 'ADDITIVE_OPERATOR':
+        operator = this._eat('ADDITIVE_OPERATOR').value
+        break;
+      case 'LOGICAL_NOT':
+        operator = this._eat('LOGICAL_NOT').value
+        break;
+    }
+    if(operator != null) {
+      return {
+        type: 'UnaryExpression',
+        operator,
+        argument: this.UnaryExpression()
+      }
+    }
+    return this.LeftHandSideExpression()
   }
 
   /***
 	 * PrimaryExpression
 	 * : Literal
 	 * | ParenthesizedExpression
-	 * | LeftHandSideExpression
+	 * | Identifier
 	 */
   PrimaryExpression () {
     if (this._isLiteral(this._lookahead.type)) {
@@ -264,6 +296,8 @@ class Parser {
     switch (this._lookahead.type) {
       case '(':
         return this.ParenthesizedExpression()
+      case 'IDENTIFIER':
+        return this.Identifier()
       default:
         return this.LeftHandSideExpression()
     }

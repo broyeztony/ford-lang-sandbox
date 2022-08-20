@@ -3,7 +3,7 @@ const parser = new Parser()
 
 function exec () {
   const program = `
-		x > 0 == false || b == true;
+		
 	`
   const ast = parser.parse(program)
   console.log(JSON.stringify(ast, null, 2))
@@ -23,6 +23,7 @@ const tests = [
   require('./relational.spec'),
   require('./equality.spec'),
   require('./logical.spec'),
+  require('./unary.spec'),
 ]
 
 tests.forEach(testRun => testRun((program, expected) => {
@@ -31,5 +32,5 @@ tests.forEach(testRun => testRun((program, expected) => {
   if (JSON.stringify(expected) !== AST) {
     throw new Error(`ParseError expected ${JSON.stringify(expected)}, got ${AST}`)
   }
-  console.log('All assertions passed.')
 }))
+console.log('All assertions passed.')
