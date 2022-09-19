@@ -36,7 +36,16 @@ class Parser {
     return statementList
   }
 
-  Statement () { // ExpressionStatement | BlockStatement | EmptyStatement | VariableStatement | IfStatement
+  /**
+   *  Statement
+   *  : ExpressionStatement
+   *  | BlockStatement
+   *  | EmptyStatement
+   *  | VariableStatement
+   *  | IfStatement
+   *  | IterationStatement
+   */
+  Statement () { //
     switch (this._lookahead.type) {
       case ';':
         return this.EmptyStatement()
@@ -46,9 +55,97 @@ class Parser {
         return this.BlockStatement()
       case 'let':
         return this.VariableStatement()
+      case 'while':
+      case 'do':
+      case 'for':
+        return this.IterationStatement()
       default:
         return this.ExpressionStatement()
     }
+  }
+
+  /**
+   * IterationStatement
+   * : WhileStatement
+   * | DoWhileStatement
+   * | ForStatement
+   * ;
+   */
+  IterationStatement () {
+    switch(this._lookahead.type) {
+      case 'while':
+        return this.WhileStatement();
+      case 'do':
+        return this.DoWhileStatement();
+      case 'for':
+        return this.ForStatement();
+    }
+  }
+
+  WhileStatement () {
+    this._eat('while')
+    this._eat('(')
+    const test = this.Expression()
+    this._eat(')')
+
+    const body = this.Statement();
+    return {
+      type: 'WhileStatement',
+      test,
+      body,
+    }
+  }
+
+  DoWhileStatement(){
+    this._eat('do')
+    const body = this.Statement();
+    this._eat('while')
+    this._eat('(')
+    const test = this.Expression()
+    this._eat(')')
+    this._eat(';')
+
+    return {
+      type: 'DoWhileStatement',
+      body,
+      test
+    }
+  }
+
+  /**
+   * ForStatement
+   * : 'for' '(' OptStatementInit ';' OptExpression ';' OptExpression ')' Statement
+   * ;
+   */
+  ForStatement(){
+    this._eat('for')
+    this._eat('(')
+
+    const init = this._lookahead.type === ';' ? null : this.ForStatementInit()
+    this._eat(';')
+
+    const test = this._lookahead.type === ';' ? null : this.Expression()
+    this._eat(';')
+
+    const update = this._lookahead.type === ')' ? null : this.Expression()
+    this._eat(')')
+
+    const body = this.Statement()
+
+    return {
+      type: 'ForStatement',
+      init,
+      test,
+      update,
+      body,
+    }
+  }
+
+  ForStatementInit() {
+    if(this._lookahead.type === 'let') {
+      return this.VariableStatementInit()
+    }
+    return this.Expression()
   }
 
   /**
@@ -74,14 +171,25 @@ class Parser {
     }
   }
 
-  VariableStatement () { // 'let' VariableDeclarationList ';'
+  /**
+   * VariableStatementInit
+   * : 'let' VariableDeclarationList
+   * ;
+   */
+  VariableStatementInit () {
     this._eat('let')
-    const declarations = this.VariableDeclarationList()
-    this._eat(';')
+    const declarations = this.VariableDeclarationList();
+
     return {
       type: 'VariableStatement',
       declarations
     }
+  }
+
+  VariableStatement () { // 'let' VariableDeclarationList ';'
+    const variableStatement = this.VariableStatementInit()
+    this._eat(';')
+    return variableStatement
   }
 
   /**

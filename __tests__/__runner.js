@@ -1,10 +1,10 @@
 const { Parser } = require('../src/Parser')
+const fs = require('fs')
 const parser = new Parser()
 
 function exec () {
-  const program = `
-		
-	`
+  const program = fs.readFileSync('program').toString()
+
   const ast = parser.parse(program)
   console.log(JSON.stringify(ast, null, 2))
 }
@@ -24,6 +24,9 @@ const tests = [
   require('./equality.spec'),
   require('./logical.spec'),
   require('./unary.spec'),
+  require('./while.spec'),
+  require('./do.while.spec'),
+  require('./for.spec'),
 ]
 
 tests.forEach(testRun => testRun((program, expected) => {
