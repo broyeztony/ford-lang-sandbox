@@ -27,6 +27,7 @@ const tests = [
   require('./while.spec'),
   require('./do.while.spec'),
   require('./for.spec'),
+  require('./function.spec'),
 ]
 
 tests.forEach(testRun => testRun((program, expected) => {
