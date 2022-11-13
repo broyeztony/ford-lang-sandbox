@@ -28,6 +28,7 @@ const tests = [
   require('./for.spec'),
   require('./function.spec'),
   require('./member.spec'),
+  require('./function.call.spec'),
 ]
 
 tests.forEach(testRun => testRun((program, expected) => {
