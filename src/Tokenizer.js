@@ -7,11 +7,14 @@ const Spec = [
   [/^\/\*[\s\S]*?\*\//, null], // comments
 
   [/^;/, ';'], // delimiters
-  [/^{/, '{'],
-  [/^}/, '}'],
+  [/^\{/, '{'],
+  [/^\}/, '}'],
   [/^\(/, '('],
   [/^\)/, ')'],
   [/^,/, ','], // comma
+  [/^\./, '.'], // dot
+  [/^\[/, '['], // opening square bracket
+  [/^\]/, ']'], // closing square bracket
 
   // ------------------------ KEYWORDS
   [/^\blet\b/, 'let'],

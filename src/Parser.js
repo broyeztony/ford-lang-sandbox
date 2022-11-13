@@ -10,7 +10,6 @@ class Parser {
 
   parse (string) {
 
-    // console.log('@ parse', string.length, string.trim().length)
     this._string = string.trim()
     if(this._string.length > 0) {
       this._tokenizer.init(string)
@@ -295,6 +294,7 @@ class Parser {
   ExpressionStatement () {
     const expression = this.Expression()
     this._eat(';')
+
     return {
       type: 'ExpressionStatement',
       expression
@@ -313,6 +313,7 @@ class Parser {
 	 * @constructor
 	 */
   AssignmentExpression () {
+
     const left = this.LogicalORExpression()
     if (!this._isAssignmentOperator(this._lookahead.type)) {
       return left
@@ -333,8 +334,52 @@ class Parser {
     return this._BinaryExpression('AdditiveExpression', 'RELATIONAL_OPERATOR')
   }
 
+  /**
+   * LeftHandSideExpression
+   *  : MemberExpression
+   *  ;
+   */
   LeftHandSideExpression () {
-    return this.PrimaryExpression()
+    return this.MemberExpression()
+  }
+
+  /**
+   * MemberExpression
+   *  : PrimaryExpression
+   *  | MemberExpression '.' Identifier
+   *  | MemberExpression '[' Expression ']'
+   *  ;
+   */
+  MemberExpression () {
+    let object = this.PrimaryExpression()
+
+    while (this._lookahead.type === '.' || this._lookahead.type === '[') {
+
+      if (this._lookahead.type === '.') {
+        this._eat('.')
+        const property = this.Identifier();
+        object = {
+          type: 'MemberExpression',
+          computed: false,
+          object,
+          property
+        }
+      }
+
+      if (this._lookahead.type === '[') {
+        this._eat('[')
+        const property = this.Expression();
+        this._eat(']')
+        object = {
+          type: 'MemberExpression',
+          computed: true,
+          object,
+          property
+        }
+      }
+    }
+
+    return object
   }
 
   Identifier () {
@@ -346,7 +391,7 @@ class Parser {
   }
 
   _checkValidAssignmentTarget (node) {
-    if (node.type === 'Identifier') {
+    if (node.type === 'Identifier' || node.type === 'MemberExpression') {
       return node
     }
     throw new SyntaxError('Invalid left-hand side in assignment expression')
@@ -452,6 +497,7 @@ class Parser {
 	 * | Identifier
 	 */
   PrimaryExpression () {
+
     if (this._isLiteral(this._lookahead.type)) {
       return this.Literal()
     }
