@@ -1,10 +1,6 @@
-let s = "Hello, world!";
-let  i = 0;
-
-while (i < s.length) {
-    console.log(i, s[i]);
-    i += 1;
+import {
+    "https://github.com/ConsenSys/avalanche/blob/main/pkg/logging/logging.go",
+    "https://github.com/ConsenSys/avalanche/blob/main/pkg/client2/types.go"
 }
 
 square(2);
-getCallback()();

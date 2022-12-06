@@ -28,6 +28,7 @@ const Spec = [
   [/^\bfor\b/, 'for'],
   [/^\bdef\b/, 'def'],
   [/^\breturn\b/, 'return'],
+  [/^\bimport\b/, 'import'],
 
   // ------------------------ NUMBERS
   [/^\d+/, 'NUMBER'],

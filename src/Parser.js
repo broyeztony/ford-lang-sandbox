@@ -64,9 +64,40 @@ class Parser {
       case 'do':
       case 'for':
         return this.IterationStatement()
+      case 'import':
+        return this.ImportStatement()
       default:
         return this.ExpressionStatement()
     }
+  }
+
+  /**
+   * ImportStatement
+   *  : 'import' '{' OptImportList '}'
+   */
+  ImportStatement () {
+    this._eat('import');
+    this._eat('{');
+    const imports = this.ImportList();
+    this._eat('}');
+
+    return {
+      type: 'ImportStatement',
+      imports,
+    }
+  }
+
+  /**
+   * ImportList:
+   * StringLiteral
+   * | ImportList ',' StringLiteral
+   */
+  ImportList() {
+    const importList = []
+    do {
+      importList.push(this.StringLiteral())
+    } while (this._lookahead.type === ',' && this._eat(','))
+    return importList;
   }
 
   /**
