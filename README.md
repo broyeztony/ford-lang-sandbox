@@ -16,7 +16,7 @@ let x = "not a number";
 // variable initialization, with optional error handler
 let result = square(x) -> {
     // This part here is an optional error handler.
-    // It receives the `_` object which is an error object: 
+    // It receives the `_` object which is an error object:
     // In this case ```{ code: INCOMPATIBLE_TYPE_ERROR, reason: "Incompatible type. Expected: 'Number', Found: 'String'."}```
     // The error handler let us return a 'recovery' value. Here, 0 will be assigned to the variable named `result`.
     // The error handler is not required to return a value.
@@ -38,8 +38,9 @@ def someFunction {
     describe(_)
 }
 
-// calling a function, with error handler
+// calling a function
 someFunction({ x: 1, y: 2.5, b: true, s: "hello" }) -> {
     describe(_)
 }
+
 ```
