@@ -1,7 +1,7 @@
 module.exports = test => {
   test(
     `
-	if (x) {
+	if x {
 		x = 1;
 	}
 	else {

@@ -233,18 +233,16 @@ class Parser {
   }
 
   /**
-	 * 'if' ( expression ) Statement
-	 * 'if' ( expression ) Statement 'else' Statement
+	 * 'if' expression Statement
+	 * 'if' expression Statement 'else' Statement
 	 */
   IfStatement () {
     this._eat('if')
-    this._eat('(')
     const test = this.Expression()
-    this._eat(')')
 
-    const consequent = this.Statement()
+    const consequent = this.BlockStatement()
     const alternate = this._lookahead != null && this._lookahead.type === 'else'
-      ? this._eat('else') && this.Statement()
+      ? this._eat('else') && this.BlockStatement()
       : null
 
     return {
