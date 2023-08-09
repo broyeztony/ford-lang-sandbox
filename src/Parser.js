@@ -77,9 +77,9 @@ class Parser {
    */
   ImportStatement () {
     this._eat('import');
-    this._eat('{');
+    this._eat('(');
     const imports = this.ImportList();
-    this._eat('}');
+    this._eat(')');
 
     return {
       type: 'ImportStatement',

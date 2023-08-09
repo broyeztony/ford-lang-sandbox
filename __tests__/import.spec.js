@@ -1,10 +1,10 @@
 module.exports = test => {
   test(
     `
-    import {
+    import (
       "https://github.com/ConsenSys/avalanche/blob/main/pkg/logging/logging.go",
       "https://github.com/ConsenSys/avalanche/blob/main/pkg/client2/types.go"
-    }
+    )
     `,
     {
       type: 'Program',
