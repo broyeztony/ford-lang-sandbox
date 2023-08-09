@@ -1,9 +1,9 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-# run the test
+# run the tests
 ❯ node __tests__/__runner.js
 
-# semantics
+# language semantics
 ```ford
 // import statement
 import (
