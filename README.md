@@ -22,7 +22,7 @@ let result = square(x) -> {
 };
 
 // 'if' statements, with 'else' alternative
-if x == "not a number" {
+if result > 1 {
 
 }
 else {
