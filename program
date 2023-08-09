@@ -6,11 +6,13 @@ import (
 // variable declaration
 let x = "not a number";
 
-// variable initialization, with error handler
+// variable initialization, with optional error handler
 let result = square(x) -> {
-    // this part here is an error handler
-    // It receives the `_` object which describes the error ```{ code: INCOMPATIBLE_TYPE_ERROR, reason: "Incompatible type. Expected: 'Number', Found: 'String'."}```
-    // The error handler let us define a 'recover' value. Here, 0 will be assigned to the variable named `result`.
+    // This part here is an optional error handler.
+    // It receives the `_` object which is an error object:
+    // In this case ```{ code: INCOMPATIBLE_TYPE_ERROR, reason: "Incompatible type. Expected: 'Number', Found: 'String'."}```
+    // The error handler let us return a 'recovery' value. Here, 0 will be assigned to the variable named `result`.
+    // The error handler is not required to return a value.
     return 0;
 };
 
