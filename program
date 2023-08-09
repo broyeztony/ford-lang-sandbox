@@ -3,4 +3,7 @@ import (
     "https://github.com/ConsenSys/avalanche/blob/main/pkg/client2/types.go"
 )
 
-square(2);
+let x = "not a number";
+let result = square(x) -> {
+    return 0;
+};

@@ -37,6 +37,9 @@ const Spec = [
   // ------------------------ Equality
   [/^[=!]=/, 'EQUALITY_OPERATOR'],
 
+  // ------------------------ Error Handler
+  [/^->/, 'ERROR_OPERATOR'],
+
   // ------------------------ Assignments
   [/^=/, 'SIMPLE_ASSIGN'],
   [/^[\*\/\+\-]=/, 'COMPLEX_ASSIGN'],

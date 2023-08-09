@@ -293,11 +293,19 @@ class Parser {
       ? this.VariableInitializer()
       : null
 
-    return {
+    const errorHandler = this.ErrorHandler();
+
+    const buffer = {
       type: 'VariableDeclaration',
       id,
-      initializer
+      initializer,
     }
+
+    if (errorHandler) {
+      buffer.errorHandler = errorHandler
+    }
+
+    return buffer
   }
 
   VariableInitializer () { // ... = AssignmentExpression
@@ -324,12 +332,30 @@ class Parser {
 
   ExpressionStatement () {
     const expression = this.Expression()
+    let errorHandler = this.ErrorHandler()
     this._eat(';')
 
-    return {
+    const buffer = {
       type: 'ExpressionStatement',
-      expression
+      expression,
     }
+
+    if (errorHandler) {
+      buffer.errorHandler = errorHandler
+    }
+
+    return buffer
+  }
+
+  ErrorHandler () {
+    if (this._lookahead.type === 'ERROR_OPERATOR') {
+      this._eat('ERROR_OPERATOR')
+      const handler = this.BlockStatement()
+
+      return handler
+    }
+
+    return null;
   }
 
   Expression () {
