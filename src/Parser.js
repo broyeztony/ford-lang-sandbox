@@ -348,8 +348,8 @@ class Parser {
   }
 
   ErrorHandler () {
-    if (this._lookahead.type === 'ERROR_OPERATOR') {
-      this._eat('ERROR_OPERATOR')
+    if (this._lookahead.type === 'ERROR_HANDLER_OPERATOR') {
+      this._eat('ERROR_HANDLER_OPERATOR')
       const handler = this.BlockStatement()
 
       return handler
