@@ -38,7 +38,7 @@ def someFunction {
     describe(_)
 }
 
-// calling a function
+// calling a function, with error handler
 someFunction({ x: 1, y: 2.5, b: true, s: "hello" }) -> {
     describe(_)
 }
