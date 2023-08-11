@@ -1,3 +1,16 @@
+// import statement
+import (
+    "https://github.com/broyeztony/some/ford/module"
+)
+
+// variable declaration
+let x = "not a number";
+
+// Functions do not need to declare the argument list
+// They receive the `_` object which gives access to all the arguments
+def square {
+    return _.x * _.x;
+}
 
 // variable initialization, with optional error handler following the error handler operator `->`
 let result = square(x) -> {
@@ -7,8 +20,4 @@ let result = square(x) -> {
     // The error handler let us return a 'recovery' value. Here, 0 will be assigned to the variable named `result`.
     // The error handler is not required to return a value.
     return 0;
-};
-
-someFunction({ x: 1, y: 2, b: true, s: "hello" }) -> {
-    describe(_);
 };
