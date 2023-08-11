@@ -31,10 +31,10 @@ let result = square(x) -> {
 
 // 'if' statements, with 'else' alternative
 if result > 1 {
-    
+
 }
 else {
-    
+
 }
 
 // ObjectLiteral assignment
@@ -59,4 +59,13 @@ someFunction({ x: 1, y: 2, b: true, s: "hello" }) -> {
     // describe the error object
     describe(_);
 };
+
+// Function's arguments can also be passed as a list like in the example below.
+// In that case, they need to be accessed by index from the `_` implicit object.
+def someOtherFunction {
+    print(_[0]);
+    print(_[1]);
+}
+
+someOtherFunction(1, 2);
 ```

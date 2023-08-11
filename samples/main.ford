@@ -57,6 +57,7 @@ someFunction({ x: 1, y: 2, b: true, s: "hello" }) -> {
 // In that case, they need to be accessed by index from the `_` implicit object.
 def someOtherFunction {
     print(_[0]);
+    print(_[1]);
 }
 
 someOtherFunction(1, 2);
