@@ -102,21 +102,19 @@ class Parser {
 
   /**
    * FunctionDeclaration:
-   * 'def' Identifier '(' OptFormalParameterList ')' BlockStatement
+   * 'def' Identifier BlockStatement
    * ;
    */
   FunctionDeclaration () {
     this._eat('def');
     const name = this.Identifier()
-    this._eat('(');
-    const params = this._lookahead.type !== ')' ? this.FormalParameterList() : [];
-    this._eat(')');
+    // const params = this._lookahead.type !== ')' ? this.FormalParameterList() : [];
 
     const body = this.BlockStatement();
     return {
       type: 'FunctionDeclaration',
       name,
-      params,
+      /* params, */
       body
     }
   }

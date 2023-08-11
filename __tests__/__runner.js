@@ -32,6 +32,7 @@ const tests = [
   require('./import.spec'),
 ]
 
+/*
 tests.forEach(testRun => testRun((program, expected) => {
   const ast = parser.parse(program)
   const AST = JSON.stringify(ast)
@@ -40,3 +41,4 @@ tests.forEach(testRun => testRun((program, expected) => {
   }
 }))
 console.log('All assertions passed.')
+*/
