@@ -183,7 +183,7 @@
 }
 ```
 
-# language semantics
+# Semantics
 ```ford
 // import statement
 import (
