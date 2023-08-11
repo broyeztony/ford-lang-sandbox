@@ -3,7 +3,7 @@ const fs = require('fs')
 const parser = new Parser()
 
 function exec () {
-  const program = fs.readFileSync('program').toString()
+  const program = fs.readFileSync('./samples/main.ford').toString()
   const ast = parser.parse(program)
   console.log(JSON.stringify(ast, null, 2))
 }
@@ -40,3 +40,4 @@ tests.forEach(testRun => testRun((program, expected) => {
   }
 }))
 console.log('All assertions passed.')
+

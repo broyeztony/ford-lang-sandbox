@@ -102,21 +102,19 @@ class Parser {
 
   /**
    * FunctionDeclaration:
-   * 'def' Identifier '(' OptFormalParameterList ')' BlockStatement
+   * 'def' Identifier BlockStatement
    * ;
    */
   FunctionDeclaration () {
     this._eat('def');
     const name = this.Identifier()
-    this._eat('(');
-    const params = this._lookahead.type !== ')' ? this.FormalParameterList() : [];
-    this._eat(')');
+    // const params = this._lookahead.type !== ')' ? this.FormalParameterList() : [];
 
     const body = this.BlockStatement();
     return {
       type: 'FunctionDeclaration',
       name,
-      params,
+      /* params, */
       body
     }
   }
@@ -637,7 +635,7 @@ class Parser {
 
   _isLiteral (tokenType) {
     return (
-      tokenType === 'NUMBER' || tokenType === 'STRING' || tokenType === 'true' || tokenType === 'false' || tokenType === 'null'
+      tokenType === 'NUMBER' || tokenType === 'STRING' || tokenType === 'true' || tokenType === 'false' || tokenType === 'null' || tokenType == '{'
     )
   }
 
@@ -653,7 +651,7 @@ class Parser {
     return expression
   }
 
-  Literal () { // NumericLiteral | StringLiteral | BooleanLiteral | NullLiteral
+  Literal () { // NumericLiteral | StringLiteral | BooleanLiteral | NullLiteral | ObjectLiteral
     switch (this._lookahead.type) {
       case 'NUMBER':
         return this.NumericLiteral()
@@ -665,6 +663,8 @@ class Parser {
         return this.BooleanLiteral(false)
       case 'null':
         return this.NullLiteral(false)
+      case '{':
+        return this.ObjectLiteral()
     }
     throw new SyntaxError('Literal: unexpected literal production')
   }
@@ -698,6 +698,38 @@ class Parser {
     return {
       type: 'StringLiteral',
       value: token.value.slice(1, -1)
+    }
+  }
+
+  ObjectLiteral () {
+    const token = this._eat('{')
+    const values = []
+    while (this._lookahead != null && this._lookahead.type !== '}') {
+      values.push(this.KeyValuePair())
+    }
+    this._eat('}')
+
+    return {
+      type: 'ObjectLiteral',
+      values
+    }
+  }
+
+  /**
+   * IDENTIFIER ':' Literal
+   */
+  KeyValuePair () {
+
+    const name = this.Identifier().name
+    this._eat(':')
+    const value = this.Literal().value
+    if (this._lookahead.type === ',') {
+      this._eat(',')
+    }
+
+    return {
+      name,
+      value
     }
   }
 

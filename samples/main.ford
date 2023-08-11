@@ -6,6 +6,12 @@ import (
 // variable declaration
 let x = "not a number";
 
+// Functions do not need to declare the argument list
+// They receive the `_` object which gives access to all the arguments
+def square {
+    return _.x * _.x;
+}
+
 // variable initialization, with optional error handler following the error handler operator `->`
 let result = square(x) -> {
     // This part here is an optional error handler.
@@ -24,14 +30,33 @@ else {
 
 }
 
+// ObjectLiteral assignment
+let A = { x: 1, y: 2, b: true, s: "hello" };
+
+// Empty BlockStatement
+{}
+
 // Functions do not need to declare the argument list
 // They receive the `_` object which gives access to all the arguments
 def someFunction {
-    // the `describe` native function prints out the argument key-value pairs
-    describe(_)
+    // describe the arguments object
+    describe(_);
+
+    while (_.x < 10) {
+        _.x = _.x + 1;
+    }
 }
 
 // calling a function, with error handler
-someFunction({ x: 1, y: 2.5, b: true, s: "hello" }) -> {
-    describe(_)
+someFunction({ x: 1, y: 2, b: true, s: "hello" }) -> {
+    // describe the error object
+    describe(_);
+};
+
+// Function's arguments can also be passed as a list like in the example below.
+// In that case, they need to be accessed by index from the `_` implicit object.
+def someOtherFunction {
+    print(_[0]);
 }
+
+someOtherFunction(1, 2);
