@@ -31,10 +31,10 @@ let result = square(x) -> {
 
 // 'if' statements, with 'else' alternative
 if result > 1 {
-
+    
 }
 else {
-
+    
 }
 
 // ObjectLiteral assignment
