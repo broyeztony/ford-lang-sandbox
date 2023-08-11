@@ -1,13 +1,8 @@
-// import statement
-import (
-    "https://github.com/broyeztony/some/ford/module"
-)
-
 // variable declaration
-let x = "not a number";
+let a = "not a number";
 
 // Functions do not need to declare the argument list
-// They receive the `_` object which gives access to all the arguments
+// They receive a implicit placeholder `_` object which gives access to all the arguments
 def square {
     return _.x * _.x;
 }
@@ -21,3 +16,7 @@ let result = square(x) -> {
     // The error handler is not required to return a value.
     return 0;
 };
+
+square({x: 10});
+
+print(result); // output: 0

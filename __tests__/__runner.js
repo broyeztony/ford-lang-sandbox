@@ -2,14 +2,6 @@ const { Parser } = require('../src/Parser')
 const fs = require('fs')
 const parser = new Parser()
 
-function exec () {
-  const program = fs.readFileSync('./samples/main.ford').toString()
-  const ast = parser.parse(program)
-  console.log(JSON.stringify(ast, null, 2))
-}
-
-exec()
-
 const tests = [
   require('./literals.spec'),
   require('./statement.list.spec'),

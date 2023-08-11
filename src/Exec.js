@@ -4,8 +4,23 @@ const parser = new Parser()
 
 const Exec = (programFile) => {
   const f = fs.readFileSync(programFile).toString()
-  const ast = parser.parse(f)
+  const ast = parser.parse(f);
+  const prelude = `
+ .----------------.  .----------------.  .----------------. 
+| .--------------. || .--------------. || .--------------. |
+| |              | || |     ___      | || |     __       | |
+| |              | || |    |_  |     | || |    \\_ \`.     | |
+| |              | || |      | |     | || |      | |     | |
+| |              | || |      | |     | || |       > >    | |
+| |              | || |     _| |     | || |     _| |     | |
+| |   _______    | || |    |___|     | || |    /__.'     | |
+| |  |_______|   | || |              | || |              | |
+| '--------------' || '--------------' || '--------------' |
+ '----------------'  '----------------'  '----------------' 
+`;
+
+  console.log(prelude);
   console.log(JSON.stringify(ast, null, 2))
 }
 
-Exec('./samples/main.ford')
+Exec(process.argv[2])

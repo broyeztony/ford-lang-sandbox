@@ -1,0 +1,1 @@
+clear && node __tests__/__runner.js

@@ -1,7 +1,180 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-# run the tests
-❯ node __tests__/__runner.js
+```ford
+.----------------.  .----------------.  .----------------. 
+| .--------------. || .--------------. || .--------------. |
+| |              | || |     ___      | || |     __       | |
+| |              | || |    |_  |     | || |    \_ `.     | |
+| |              | || |      | |     | || |      | |     | |
+| |              | || |      | |     | || |       > >    | |
+| |              | || |     _| |     | || |     _| |     | |
+| |   _______    | || |    |___|     | || |    /__.'     | |
+| |  |_______|   | || |              | || |              | |
+| '--------------' || '--------------' || '--------------' |
+ '----------------'  '----------------'  '----------------'
+```
+
+# Run the unit-tests
+❯ ./test
+
+# Print the AST for a program
+❯ ./run <path-to-program>
+
+# Example
+❯ ./run ./samples/error.handler.ford
+
+```ford
+ .----------------.  .----------------.  .----------------. 
+| .--------------. || .--------------. || .--------------. |
+| |              | || |     ___      | || |     __       | |
+| |              | || |    |_  |     | || |    \_ `.     | |
+| |              | || |      | |     | || |      | |     | |
+| |              | || |      | |     | || |       > >    | |
+| |              | || |     _| |     | || |     _| |     | |
+| |   _______    | || |    |___|     | || |    /__.'     | |
+| |  |_______|   | || |              | || |              | |
+| '--------------' || '--------------' || '--------------' |
+ '----------------'  '----------------'  '----------------' 
+
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "VariableStatement",
+      "declarations": [
+        {
+          "type": "VariableDeclaration",
+          "id": {
+            "type": "Identifier",
+            "name": "a"
+          },
+          "initializer": {
+            "type": "StringLiteral",
+            "value": "not a number"
+          }
+        }
+      ]
+    },
+    {
+      "type": "FunctionDeclaration",
+      "name": {
+        "type": "Identifier",
+        "name": "square"
+      },
+      "body": {
+        "type": "BlockStatement",
+        "body": [
+          {
+            "type": "ReturnStatement",
+            "argument": {
+              "type": "BinaryExpression",
+              "operator": "*",
+              "left": {
+                "type": "MemberExpression",
+                "computed": false,
+                "object": {
+                  "type": "Identifier",
+                  "name": "_"
+                },
+                "property": {
+                  "type": "Identifier",
+                  "name": "x"
+                }
+              },
+              "right": {
+                "type": "MemberExpression",
+                "computed": false,
+                "object": {
+                  "type": "Identifier",
+                  "name": "_"
+                },
+                "property": {
+                  "type": "Identifier",
+                  "name": "x"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "VariableStatement",
+      "declarations": [
+        {
+          "type": "VariableDeclaration",
+          "id": {
+            "type": "Identifier",
+            "name": "result"
+          },
+          "initializer": {
+            "type": "CallExpression",
+            "callee": {
+              "type": "Identifier",
+              "name": "square"
+            },
+            "arguments": [
+              {
+                "type": "Identifier",
+                "name": "x"
+              }
+            ]
+          },
+          "errorHandler": {
+            "type": "BlockStatement",
+            "body": [
+              {
+                "type": "ReturnStatement",
+                "argument": {
+                  "type": "NumericLiteral",
+                  "value": 0
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "CallExpression",
+        "callee": {
+          "type": "Identifier",
+          "name": "square"
+        },
+        "arguments": [
+          {
+            "type": "ObjectLiteral",
+            "values": [
+              {
+                "name": "x",
+                "value": 10
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "ExpressionStatement",
+      "expression": {
+        "type": "CallExpression",
+        "callee": {
+          "type": "Identifier",
+          "name": "print"
+        },
+        "arguments": [
+          {
+            "type": "Identifier",
+            "name": "result"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
 
 # language semantics
 ```ford
