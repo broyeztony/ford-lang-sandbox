@@ -15,13 +15,20 @@
 ```
 
 # Run the unit-tests
+```shell
 ❯ ./test
+```
+
 
 # Print the AST for a program
+```shell
 ❯ ./run <path-to-program>
+```
 
 # Example
+```
 ❯ ./run ./samples/error.handler.ford
+```
 
 ```ford
  .----------------.  .----------------.  .----------------. 
