@@ -1,10 +1,3 @@
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-
-# run the tests
-❯ node __tests__/__runner.js
-
-# language semantics
-```ford
 // import statement
 import (
     "https://github.com/broyeztony/some/ford/module"
@@ -59,4 +52,3 @@ someFunction({ x: 1, y: 2, b: true, s: "hello" }) -> {
     // describe the error object
     describe(_);
 };
-```

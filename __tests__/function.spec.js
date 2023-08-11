@@ -1,38 +1,50 @@
 module.exports = test => {
   test(
 		`
-		def square (x) {
-    	return x * x;
+		def square {
+    	return _.x * _.x;
 		}
 		`,
 		{
 			type: 'Program',
 			body: [
 				{
-					type: 'FunctionDeclaration',
-					name: {
-						type: 'Identifier',
-						name: 'square'
+					"type": "FunctionDeclaration",
+					"name": {
+						"type": "Identifier",
+						"name": "square"
 					},
-					params: [
-						{
-							type: 'Identifier',
-							name: 'x',
-						}
-					],
-					body: {
-						type: 'BlockStatement',
-						body: [
+					"body": {
+						"type": "BlockStatement",
+						"body": [
 							{
-								type: 'ReturnStatement',
-								argument: {
-									type: 'BinaryExpression',
-									operator: '*',
-									left: {
-										type: 'Identifier', name: 'x',
+								"type": "ReturnStatement",
+								"argument": {
+									"type": "BinaryExpression",
+									"operator": "*",
+									"left": {
+										"type": "MemberExpression",
+										"computed": false,
+										"object": {
+											"type": "Identifier",
+											"name": "_"
+										},
+										"property": {
+											"type": "Identifier",
+											"name": "x"
+										}
 									},
-									right: {
-										type: 'Identifier', name: 'x',
+									"right": {
+										"type": "MemberExpression",
+										"computed": false,
+										"object": {
+											"type": "Identifier",
+											"name": "_"
+										},
+										"property": {
+											"type": "Identifier",
+											"name": "x"
+										}
 									}
 								}
 							}

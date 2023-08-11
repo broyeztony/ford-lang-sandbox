@@ -1,11 +1,3 @@
-/*
-// import statement
-import (
-    "https://github.com/broyeztony/some/ford/module"
-)
-
-// variable declaration
-let x = "not a number";
 
 // variable initialization, with optional error handler following the error handler operator `->`
 let result = square(x) -> {
@@ -17,25 +9,6 @@ let result = square(x) -> {
     return 0;
 };
 
-// 'if' statements, with 'else' alternative
-if result > 1 {
-
-}
-else {
-
-}
-*/
-
-// Functions do not need to declare the argument list
-// They receive the `_` object which gives access to all the arguments
-def someFunction {
-    // the `describe` native function prints out the argument key-value pairs
+someFunction({ x: 1, y: 2, b: true, s: "hello" }) -> {
     describe(_);
-}
-
-{}
-
-// calling a function, with error handler
-// someFunction({ x: 1, y: 2.5, b: true, s: "hello" }) -> {
-    // describe(_);
-//}
+};
