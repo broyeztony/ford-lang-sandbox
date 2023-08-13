@@ -29,6 +29,7 @@ const Spec = [
   [/^\bfor\b/, 'for'],
   [/^\bdef\b/, 'def'],
   [/^\breturn\b/, 'return'],
+  [/^\brecover\b/, 'recover'],
   [/^\bimport\b/, 'import'],
 
   // ------------------------ NUMBERS

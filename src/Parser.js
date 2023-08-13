@@ -60,6 +60,8 @@ class Parser {
         return this.FunctionDeclaration();
       case 'return':
         return this.ReturnStatement();
+      case 'recover':
+        return this.RecoverStatement();
       case 'while':
       case 'do':
       case 'for':
@@ -142,6 +144,20 @@ class Parser {
     this._eat(';');
     return {
       type: 'ReturnStatement',
+      argument
+    }
+  }
+
+  /**
+   * RecoverStatement:
+   * 'recover' OptExpression
+   */
+  RecoverStatement () {
+    this._eat('recover');
+    const argument = this._lookahead.type !== ';' ? this.Expression() : null;
+    this._eat(';');
+    return {
+      type: 'RecoverStatement',
       argument
     }
   }
@@ -657,6 +673,8 @@ class Parser {
         return this.NumericLiteral()
       case 'STRING':
         return this.StringLiteral()
+      case 'IDENTIFIER':
+        return this.Identifier()
       case 'true':
         return this.BooleanLiteral(true)
       case 'false':
@@ -719,10 +737,9 @@ class Parser {
    * IDENTIFIER ':' Literal
    */
   KeyValuePair () {
-
     const name = this.Identifier().name
     this._eat(':')
-    const value = this.Literal().value
+    const value = this.Literal()
     if (this._lookahead.type === ',') {
       this._eat(',')
     }

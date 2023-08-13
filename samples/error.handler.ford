@@ -12,11 +12,11 @@ let result = square(x) -> {
     // This part here is an optional error handler.
     // It receives the `_` object which is an error object:
     // In this case ```{ code: INCOMPATIBLE_TYPE_ERROR, reason: "Incompatible type. Expected: 'Number', Found: 'String'."}```
-    // The error handler let us return a 'recovery' value. Here, 0 will be assigned to the variable named `result`.
-    // The error handler is not required to return a value.
-    return 0;
+    // The error handler let us recover a value using the `recover` keyword.
+    As a consequence of executing this block, 0 will be assigned to the variable named `result`.
+    recover 0;
 };
 
-square({x: 10});
+square({ x: a });
 
 print(result); // output: 0

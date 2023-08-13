@@ -1,0 +1,9 @@
+// variable declaration
+let a = 2;
+
+// object literal
+let b = { x: a };
+return b;
+
+// standalone value are notauthorized and will result in a compilation error
+{ x: true };
