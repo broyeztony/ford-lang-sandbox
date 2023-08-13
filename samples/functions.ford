@@ -1,0 +1,21 @@
+// function definition with explicit arguments declaration
+def square (x) {
+    return x * x;
+}
+
+// function definition without parameters declaration
+// the function's call values can be accessed through the `_` implicit object
+def square2 {
+    return _.x * _.x;
+}
+
+// function definition without parameters
+def add {
+    return _[0] + _[1];
+}
+
+
+
+let w = square(1);
+let y = square2({ x: 1 });
+let z = add(1, 2);

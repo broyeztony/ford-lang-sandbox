@@ -110,15 +110,26 @@ class Parser {
   FunctionDeclaration () {
     this._eat('def');
     const name = this.Identifier()
-    // const params = this._lookahead.type !== ')' ? this.FormalParameterList() : [];
+
+    let params
+    if (this._lookahead.type === '(') {
+      this._eat('(');
+      params = this._lookahead.type !== ')' ? this.FormalParameterList() : [];
+      this._eat(')');
+    }
 
     const body = this.BlockStatement();
-    return {
+    const buffer =  {
       type: 'FunctionDeclaration',
       name,
-      /* params, */
       body
     }
+
+    if (params) {
+      buffer.params = params
+    }
+
+    return buffer;
   }
 
   /**

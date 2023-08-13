@@ -3,7 +3,11 @@ let a = 2;
 
 // object literal
 let b = { x: a };
-return b;
 
-// standalone value are notauthorized and will result in a compilation error
-{ x: true };
+// standalone value are not authorized and will result in a compilation error
+// { x: true };
+
+let z = square({ x: a }) -> {
+    // error handler
+    // describe(_)
+};
