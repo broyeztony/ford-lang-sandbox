@@ -4,10 +4,15 @@ let a = 2;
 // object literal
 let b = { x: a };
 
-// standalone value are not authorized and will result in a compilation error
+// standalone value are not authorized and will result in a compilation error.
+// the next line would throw ```SyntaxError: Unexpected token ":", expected: ";"```
 // { x: true };
 
-let z = square({ x: a }) -> { // error handler
-};
+let z = square({ x: a }) ->
+    { // error handler
+    };
 
 let result = square({ x: a }) -> {};
+
+// handle shorthand notation
+let d = { a, b, c: false };

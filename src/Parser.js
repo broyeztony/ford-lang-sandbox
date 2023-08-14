@@ -752,6 +752,23 @@ class Parser {
 
     console.log('@ KeyValuePair', this._lookahead)
 
+    if (this._lookahead.type !== ':') { // handle shorthand notation. i.e. ```let x = { a };```
+
+      const value = {
+        type: 'Identifier',
+        name
+      }
+
+      if (this._lookahead.type === ',') {
+        this._eat(',')
+      }
+
+      return {
+        name,
+        value
+      }
+    }
+
     this._eat(':')
     const value = this.Literal()
     if (this._lookahead.type === ',') {
