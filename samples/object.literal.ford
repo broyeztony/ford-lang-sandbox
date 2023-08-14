@@ -7,7 +7,7 @@ let b = { x: a };
 // standalone value are not authorized and will result in a compilation error
 // { x: true };
 
-let z = square({ x: a }) -> {
-    // error handler
-    // describe(_)
+let z = square({ x: a }) -> { // error handler
 };
+
+let result = square({ x: a }) -> {};

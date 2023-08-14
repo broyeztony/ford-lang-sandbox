@@ -1,0 +1,15 @@
+def B {
+    return 0;
+}
+
+def A {
+    return {
+        b: B,
+    };
+}
+
+let a = A(); // -> {};
+let b = a.b(); // -> {};
+let x = {
+    a, b
+}

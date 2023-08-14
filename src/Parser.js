@@ -745,10 +745,13 @@ class Parser {
   }
 
   /**
-   * IDENTIFIER ':' Literal
+   * IDENTIFIER (':' Literal)
    */
   KeyValuePair () {
     const name = this.Identifier().name
+
+    console.log('@ KeyValuePair', this._lookahead)
+
     this._eat(':')
     const value = this.Literal()
     if (this._lookahead.type === ',') {

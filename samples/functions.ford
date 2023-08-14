@@ -14,8 +14,20 @@ def add {
     return _[0] + _[1];
 }
 
-
-
 let w = square(1);
 let y = square2({ x: 1 });
 let z = add(1, 2);
+
+let X = {
+    a: square,
+    b: 1,
+};
+
+X.square();
+X['square']() -> {
+
+};
+
+7 / 0 -> {
+    exit("");
+};
