@@ -1,0 +1,14 @@
+def B {
+    return 0;
+}
+
+def A {
+    return {
+        b: B,
+    };
+}
+
+// Ford does not currently support chaining call expressions, i.e ```A().b();```
+// below is how it should be written
+let a = A() -> {};
+let b = a.b() -> {};

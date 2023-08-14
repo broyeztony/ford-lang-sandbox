@@ -16,3 +16,11 @@ let result = square({ x: a }) -> {};
 
 // handle shorthand notation
 let d = { a, b, c: false };
+
+// slightly more complex structure
+let foo = {
+    bar: {
+        baz: 1,
+        qux: { a, b },
+    },
+};
