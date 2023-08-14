@@ -750,8 +750,6 @@ class Parser {
   KeyValuePair () {
     const name = this.Identifier().name
 
-    console.log('@ KeyValuePair', this._lookahead)
-
     if (this._lookahead.type !== ':') { // handle shorthand notation. i.e. ```let x = { a };```
 
       const value = {

@@ -26,11 +26,20 @@
 
 # Example
 ```
+# let a = "not a number";
+# def square {
+#     return _.x * _.x;
+# }
+# let result = square({ x: a }) -> {
+#     recover 0;
+# };
+# print(result); // output: 0
+
 ❯ ./run ./samples/error.handler.ford
 ```
 
 ```ford
- .----------------.  .----------------.  .----------------. 
+  .----------------.  .----------------.  .----------------. 
 | .--------------. || .--------------. || .--------------. |
 | |              | || |     ___      | || |     __       | |
 | |              | || |    |_  |     | || |    \_ `.     | |
@@ -121,8 +130,16 @@
             },
             "arguments": [
               {
-                "type": "Identifier",
-                "name": "x"
+                "type": "ObjectLiteral",
+                "values": [
+                  {
+                    "name": "x",
+                    "value": {
+                      "type": "Identifier",
+                      "name": "a"
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -130,7 +147,7 @@
             "type": "BlockStatement",
             "body": [
               {
-                "type": "ReturnStatement",
+                "type": "RecoverStatement",
                 "argument": {
                   "type": "NumericLiteral",
                   "value": 0
@@ -140,27 +157,6 @@
           }
         }
       ]
-    },
-    {
-      "type": "ExpressionStatement",
-      "expression": {
-        "type": "CallExpression",
-        "callee": {
-          "type": "Identifier",
-          "name": "square"
-        },
-        "arguments": [
-          {
-            "type": "ObjectLiteral",
-            "values": [
-              {
-                "name": "x",
-                "value": 10
-              }
-            ]
-          }
-        ]
-      }
     },
     {
       "type": "ExpressionStatement",
