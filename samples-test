@@ -1,0 +1,8 @@
+clear
+./run samples/api.demo.ford
+./run samples/demo.ford
+./run samples/error.handler.ford
+./run samples/function.calls.ford
+./run samples/functions.ford
+./run samples/hello.ford
+./run samples/object.literal.ford

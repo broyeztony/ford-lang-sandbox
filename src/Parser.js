@@ -684,8 +684,8 @@ class Parser {
         return this.NumericLiteral()
       case 'STRING':
         return this.StringLiteral()
-      case 'IDENTIFIER':
-        return this.Identifier()
+      // case 'IDENTIFIER':
+        // return this.Identifier()
       case 'true':
         return this.BooleanLiteral(true)
       case 'false':

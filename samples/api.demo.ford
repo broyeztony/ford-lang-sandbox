@@ -1,7 +1,7 @@
 // create a server object
-let server = Listen({ port: 8080 }) -> { exit("Could not create the Server object."); };
+let server = listen({ port: 8080 }) -> { exit("Could not create the Server object."); };
 
-// attach handlers to the server object
+// attach API handlers to the server object
 server.attach({ path: "/blockNumber", handler: checks.checkBlockNumber });
 server.attach({ path: "/logs", handler: checks.checkLogs });
 
@@ -15,12 +15,20 @@ def checkBlockNumber {
 			block: 0
 		};
 	};
+
 	return j.block > 0;
 }
 
+// alternative api handler
 def checkBlockNumber2 {
 
-	let j = readJson("http://some-json-api");
-	let test = j.block > 0 -> { false; };
+	let j = readJson("http://some-json-api"); // no error handler, `j` could be null or not necessarily be an object with a `block` property
+	// evaluating ```j.block > 0``` would then throw an error, which is intercepted in the error handler below
+	let test =
+		j.block > 0
+		-> {
+			recover false;
+		};
+
 	return test;
 }
