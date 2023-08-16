@@ -8,7 +8,7 @@ def A {
     };
 }
 
-// Ford does not currently support chaining call expressions, i.e ```A().b();```
+// Ford does not support chaining call expressions, i.e ```A().b();```
 // below is how it should be written
-let a = A() -> {};
-let b = a.b() -> {};
+let a = A(); // optional error handler: -> {};
+let b = a.b(); // optional error handler: -> {};

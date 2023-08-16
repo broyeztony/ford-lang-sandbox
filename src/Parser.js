@@ -678,7 +678,7 @@ class Parser {
     return expression
   }
 
-  Literal () { // NumericLiteral | StringLiteral | BooleanLiteral | NullLiteral | ObjectLiteral
+  Literal () { // NumericLiteral | StringLiteral | Identifier | BooleanLiteral | NullLiteral | ObjectLiteral
     switch (this._lookahead.type) {
       case 'NUMBER':
         return this.NumericLiteral()
@@ -761,22 +761,16 @@ class Parser {
         this._eat(',')
       }
 
-      return {
-        name,
-        value
-      }
+      return { name, value }
     }
 
     this._eat(':')
-    const value = this.Literal()
+    const value = this.MemberExpression()
     if (this._lookahead.type === ',') {
       this._eat(',')
     }
 
-    return {
-      name,
-      value
-    }
+    return { name, value }
   }
 
   _eat (tokenType) {

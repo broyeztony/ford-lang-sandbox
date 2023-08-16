@@ -1,0 +1,26 @@
+// create a server object
+let server = Listen({ port: 8080 }) -> { exit("Could not create the Server object."); };
+
+// attach handlers to the server object
+server.attach({ path: "/blockNumber", handler: checks.checkBlockNumber });
+server.attach({ path: "/logs", handler: checks.checkLogs });
+
+// TODO: support the `module` keyword
+// module checks;
+
+def checkBlockNumber {
+
+	let j = readJson("http://some-json-api") -> {
+		recover {
+			block: 0
+		};
+	};
+	return j.block > 0;
+}
+
+def checkBlockNumber2 {
+
+	let j = readJson("http://some-json-api");
+	let test = j.block > 0 -> { false; };
+	return test;
+}
